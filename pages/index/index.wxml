@@ -1,0 +1,15 @@
+<view class="index-container">
+
+<!--  <view >-->
+    <open-data type="userAvatarUrl" class="image"></open-data>
+    <view>
+      <text>欢迎你，{{userInfo.data.nickName}}</text>
+    </view>
+<!--  </view>-->
+    <text class="content">
+      欢迎来到投机小助手，点击下面按钮，登录进行使用
+    </text>
+
+    <button catchtap="login" class="login-btn">点击登录</button>
+
+</view>

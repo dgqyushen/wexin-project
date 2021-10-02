@@ -1,0 +1,20 @@
+/* pages/index/index.wxss */
+.index-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image{
+    width: 200rpx;
+    height: 200rpx;
+    border-radius: 70%;
+    margin: 50px 0;
+}
+.login-btn{
+    font-size: larger;
+}
+
+.content{
+    margin: 50px 0;
+}
+
