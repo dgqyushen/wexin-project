@@ -1,14 +1,40 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/logs/logs"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#1490DF",
-    "navigationBarTitleText": "投基小助手",
-    "navigationBarTextStyle": "white"
-  },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+    "pages": [
+        "pages/index/index",
+        "pages/logs/logs",
+        "pages/search/search",
+        "pages/manage/manage"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#1490DF",
+        "navigationBarTitleText": "投基小助手",
+        "navigationBarTextStyle": "white"
+    },
+
+    "tabBar": {
+        "list": [
+          {
+            "pagePath": "pages/index/index",
+            "text": "首页",
+            "iconPath": "/static/image/tabbar/home.png",
+            "selectedIconPath": "/static/image/tabbar/home_deep.png"
+          },
+          {
+            "pagePath": "pages/manage/manage",
+            "text": "管理",
+            "iconPath": "/static/image/tabbar/settings.png",
+            "selectedIconPath": "/static/image/tabbar/settings_deep.png"
+          }
+        ],
+        "backgroundColor": "#fff",
+        "color": "#000",
+        "selectedColor": "#0286f1"
+      },
+
+    
+
+
+
+    "sitemapLocation": "sitemap.json"
 }

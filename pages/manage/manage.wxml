@@ -1,0 +1,44 @@
+<!--pages/manage/manage.wxml-->
+
+<view class="manage-container">
+
+
+    <view class="userinfo-avatar">
+        <open-data type="userAvatarUrl"></open-data>
+    </view>
+
+
+    <view class="welcome-content">
+        <!-- <text>欢迎你，{{userInfo.data.nickName}} -->
+        <text>
+            欢迎你
+           
+        </text>
+        
+    </view>
+
+
+    <view wx:if="{{!isLogin}}">
+        <van-empty description="没有登陆，无法查看所选基金的涨跌情况">
+        </van-empty>
+    </view>
+
+    <view wx:else class="stock-info">
+        <view wx:if="{{selectedList.length == 0}}">
+            <van-empty description="没有添加基金代码，用首页的搜索框添加吧！" />
+        </view>
+        <view wx:else>
+            11111
+
+
+
+        </view>
+    </view>
+
+
+
+
+
+
+
+</view>

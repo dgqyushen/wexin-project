@@ -1,15 +1,64 @@
 <view class="index-container">
 
-<!--  <view >-->
-    <open-data type="userAvatarUrl" class="image"></open-data>
+
+  <!-- <open-data type="userAvatarUrl" class="image"></open-data>
+
     <view>
       <text>欢迎你，{{userInfo.data.nickName}}</text>
-    </view>
-<!--  </view>-->
-    <text class="content">
-      欢迎来到投机小助手，点击下面按钮，登录进行使用
-    </text>
+    </view> -->
+  <!-- <view>
+    <van-cell-group>
+      <van-field model:value="{{ value }}" placeholder="请输入基金代码" border="{{ false }}">
+        <van-button slot="button" size="small" type="info">
+          查询
+        </van-button>
+      </van-field>
+    </van-cell-group>
+  </view> -->
+  <view>
+    <van-search model:value="{{ stockNum }}" placeholder="请输入搜索股票基金代码" background="#1490DF" bind:search="search" />
+  </view>
 
-    <button catchtap="login" class="login-btn">点击登录</button>
+  <view wx:if="{{!isLogin}}">
+    <van-empty description="没有登陆，无法查看所选基金的涨跌情况">
+      <van-button round type="info" class="bottom-button" bind:click="login">登录</van-button>
+    </van-empty>
+  </view>
+
+  <view wx:else class="stock-info">
+    <view wx:if="{{selectedList.length == 0}}">
+      <van-empty description="没有添加基金代码，用上面的搜索框添加吧！" />
+    </view>
+    <view wx:else>
+      <van-cell-group inset border title="关注的股票基金列表">
+
+        <van-cell title="股票名称+股票代码" value="设置日涨跌幅提醒: 1%" size="large" use-label-slot="true">
+          <view slot="label">
+            <view class="van-cell-text">净值：12</view>
+            <view>今日涨跌幅：+0.5%</view>
+
+          </view>
+
+
+
+        </van-cell>
+
+      </van-cell-group>
+
+    </view>
+  </view>
+
+  <!-- <van-tabbar active="{{ active }}" bind:change="onChange" safe-area-inset-bottom>
+    <van-tabbar-item icon="home-o" catchtap="toIndex">主页</van-tabbar-item>
+    <van-tabbar-item icon="setting" catchtap="toManage">管理</van-tabbar-item>
+  </van-tabbar> -->
+
+
+  <!--  </view>-->
+  <!--    <text class="content">-->
+  <!--     点击下面按钮，登录进行使用-->
+  <!--    </text>-->
+
+  <!--    <button catchtap="login" class="login-btn">点击登录</button>-->
 
 </view>

@@ -6,82 +6,41 @@ Page({
    */
   data: {
     userInfo: {
-      // data: {
-      //   nickName: '游客'
-      // }
-    }
+      sessionId: ''
+    },
+    active: 0,
+    stockNum: '',
+    isLogin: false,
+    selectedList: [1, 2, 3]
   },
-
-  login() {
-    wx.getUserProfile({
-      desc: 'desc',
-      success: res => {
-        // console.log(res);
-        try {
-          wx.setStorage({
-            key: 'userInfo',
-            data: res.userInfo
-          });
-          wx.getStorage({
-            key: 'userInfo',
-            success(res) {
-              // console.log(res)
-            }
-          })
-        } catch (e) {
-          console.log(e)
-        }
-      },
-      fail: err => {
-        console.log(err);
-        wx.showToast({
-          title: '失败',
-          icon: 'fail',
-          duration: 2000
-        })
-
-      }
-    })
-  },
-
-
-  // toLogs(){
-  //   // console.log('tap test');
-  //   wx.navigateTo({
-  //     url: '/pages/logs/logs',
-  //   })
-  //   // wx.redirectTo({
-  //   //   url: '/pages/logs/logs',
-  //   // })
-  // },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
 
-    let that = this
-    wx.getStorage({
-      key: 'userInfo',
-      success(res) {
-        console.log('success');
-        that.setData({
-          userInfo: res
-        });
-        console.log(that.data.userInfo)
-      },
-      fail(err) {
-        console.log('err');
-        that.setData({
-          userInfo: {
-            data:{
-              nickName: '游客'
-            }
+    // let that = this
+    // wx.getStorage({
+    //   key: 'userInfo',
+    //   success(res) {
+    //     console.log('success');
+    //     that.setData({
+    //       userInfo: res
+    //     });
+    //     console.log(that.data.userInfo);
+    //   },
+    //   fail(err) {
+    //     console.log('err');
+    //     that.setData({
+    //       userInfo: {
+    //         data:{
+    //           nickName: '游客'
+    //         }
 
-          }
-        })
-      }
-    })
+    //       }
+    //     })
+    //   }
+    // })
 
 
   },
@@ -152,5 +111,82 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  login() {
+    wx.login({
+      timeout: 3000,
+      success(res) {
+        wx.request({
+          url: 'http://localhost:7890/wx/login',
+          timeout: 3000,
+          method: "POST",
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            code: res.code
+          },
+          success(res) {
+            wx.setStorageSync('sessionId', res.data);
+            console.log(res.data);
+            
+            // let sessionId = wx.getStorageSync('sessionId');
+            // console.log(sessionId);
+          }
+        })
+      },
+      fail(err) {
+        console.log(err);
+      }
+    });
+    let that = this;
+    wx.getUserProfile({
+      desc: '获取用户授权',
+      success(resp) {
+        console.log(resp);
+        wx.setStorageSync('isLogin', true);
+      
+        wx.setStorageSync('nickName', resp.userInfo.nickName);
+        that.setData({
+          isLogin: true
+        });
+        that.onLoad();
+
+      },
+      fail(err) {
+        // console.log(err);
+        wx.getStorageSync('isLogin');
+        that.setData({
+          isLogin: false
+        });
+        that.onLoad();
+      }
+    })
+    
+  },
+  onChange(event) {
+    // event.detail 的值为当前选中项的索引
+    // this.setData({ active: event.detail });
+    this.setData({
+      active: 0
+    })
+  },
+  search(){
+      let stockNum = this.data.stockNum;
+      // let regex = ^\d{6}$;
+
+
+      if (!(/^\d{6}$$/.test(stockNum))) {
+        // console.log("not match");
+        wx.showToast({
+          title: '代码为6位数字',
+          icon: "error"
+        })
+      }else {
+        console.log("match");
+      }
   }
+
+
 })
